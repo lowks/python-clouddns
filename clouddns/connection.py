@@ -128,8 +128,8 @@ class Connection(object):
         headers = {'Content-Length': str(len(data)),
                    'User-Agent': self.user_agent,
                    'X-Auth-Token': self.token}
-        
-        data and headers.update({'Content-type': str(content_type)})
+        if data:
+            headers.update({'Content-type': str(content_type)})
         isinstance(hdrs, dict) and headers.update(hdrs)
 
         def retry_request():

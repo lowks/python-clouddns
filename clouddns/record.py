@@ -47,7 +47,7 @@ class Record(object):
                                                   self.domain.id,
                                                   "records", self.id, ""],
                                                  data=js,
-                                                 hdrs={"Content-Type": "application/json"})
+                                                 content_type="application/json")
         output = self.domain.conn.wait_for_async_request(response)
         return output
 

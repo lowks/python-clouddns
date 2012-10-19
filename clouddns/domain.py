@@ -100,7 +100,7 @@ class Domain(object):
         js = json.dumps(dom)
 
         response = self.conn.make_request('PUT', ["domains", self.id],
-                                          data=js, hdrs={'Content-Type': 'application/json'})
+                                          data=js, content_type='application/json')
         output = self.conn.wait_for_async_request(response)
         return output
 
@@ -126,7 +126,7 @@ class Domain(object):
         response = self.conn.make_request('POST',
                                           ['domains', self.id, 'records'],
                                           data=js,
-                                          hdrs={'Content-Type': 'application/json'})
+                                          content_type="application/json")
         output = self.conn.wait_for_async_request(response)
 
         ret = []

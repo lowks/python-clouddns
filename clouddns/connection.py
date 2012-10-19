@@ -165,7 +165,7 @@ class Connection(object):
     def list_domains_info(self, filter_by_name=None, offset=None, limit=None):
         parms = {}
         if filter_by_name:
-            parms['name'] = name
+            parms['name'] = filter_by_name
         if offset:
             parms['offset'] = offset
         if limit:

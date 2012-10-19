@@ -107,7 +107,7 @@ class Connection(object):
                                           timeout=self.timeout)
         self.connection.set_debuglevel(self.debuglevel)
 
-    def make_request(self, method, path=[], data='', hdrs=None, parms=None):
+    def make_request(self, method, path=[], data='', hdrs=None, parms=None, content_type="application/xml"):
         """
         Given a method (i.e. GET, PUT, POST, etc), a path, data, header and
         metadata dicts, and an optional dictionary of query parameters,
@@ -123,10 +123,13 @@ class Connection(object):
         elif isinstance(parms, list) and parms:
             query_args = \
                 ["%s" % x for x in parms]
-        path = '%s?%s' % (path, '&'.join(query_args))
+        if query_args:
+            path = '%s?%s' % (path, '&'.join(query_args))
         headers = {'Content-Length': str(len(data)),
                    'User-Agent': self.user_agent,
                    'X-Auth-Token': self.token}
+        
+        data and headers.update({'Content-type': str(content_type)})
         isinstance(hdrs, dict) and headers.update(hdrs)
 
         def retry_request():

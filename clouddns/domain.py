@@ -165,13 +165,11 @@ class DomainResults(object):
             kwargs['comment'] = self._domains[key]['comment']
         else:
             kwargs['comment'] = None
-        
         return Domain(self.conn,
                          self._domains[key]['name'],
                          self._domains[key]['id'],
                          self._domains[key]['accountId'],
                          **kwargs)
-                         
 
     def __getslice__(self, i, j):
         return [Domain(self.conn, k['name'], k['id'], \

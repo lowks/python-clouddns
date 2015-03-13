@@ -103,8 +103,8 @@ class Authentication(BaseAuthentication):
         conn.close()
 
         if not (auth_token, dns_management_host):
-            raise AuthenticationError("Invalid response from the " \
-                    "authentication service.")
+            raise AuthenticationError("Invalid response from the "
+                                      "authentication service.")
 
         return ("".join(dns_management_url), auth_token)
 

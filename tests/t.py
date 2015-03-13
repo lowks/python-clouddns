@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
-__author__ = "Chmouel Boudjnah <chmouel@chmouel.com>"
 import clouddns
 import os
 import sys
+
+__author__ = "Chmouel Boudjnah <chmouel@chmouel.com>"
 
 REGION = "UK"
 
@@ -18,9 +19,9 @@ FORCE_DBG = True
 
 
 def dbg(msg, force_dbg=FORCE_DBG):
-    if ('PYTHON_CLOUDDNS_DEBUG' in os.environ and \
-            os.environ['PYTHON_CLOUDDNS_DEBUG'].strip()) or \
-            force_dbg:
+    if ('PYTHON_CLOUDDNS_DEBUG' in os.environ and
+        os.environ['PYTHON_CLOUDDNS_DEBUG'].strip()) or
+    force_dbg:
         print "****** %s ******" % msg
 
 if not US_RCLOUD_KEY or not US_RCLOUD_USER:

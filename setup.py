@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
-__author__ = "Chmouel Boudjnah <chmouel@chmouel.com>"
 import os
 from setuptools import setup, find_packages
+__author__ = "Chmouel Boudjnah <chmouel@chmouel.com>"
+
 NAME = "python-clouddns"
 GITHUB_URL = "https://github.com/chmouel/%s" % (NAME)
 DESCRIPTION = "Python interface to Rackspace Cloud DNS "

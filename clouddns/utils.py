@@ -16,7 +16,7 @@ def parse_url(url):
     (scheme, netloc, path, params, query, frag) = urlparse(url)
 
     # We only support web services
-    if not scheme in ('http', 'https'):
+    if scheme not in ('http', 'https'):
         raise InvalidUrl('Scheme must be one of http or https')
 
     is_ssl = scheme == 'https' and True or False

@@ -1,10 +1,11 @@
 # -*- encoding: utf-8 -*-
-__author__ = "Chmouel Boudjnah <chmouel@chmouel.com>"
 import json
 
 import consts
 from errors import InvalidDomainName, ResponseError
 from record import RecordResults, Record
+
+__author__ = "Chmouel Boudjnah <chmouel@chmouel.com>"
 
 
 class Domain(object):
@@ -16,7 +17,7 @@ class Domain(object):
         self._name = name
 
     name = property(fget=lambda self: self._name, fset=__set_name,
-        doc="the name of the domain (read-only)")
+                    doc="the name of the domain (read-only)")
 
     def __init__(self, connection=None,
                  name=None,
@@ -56,7 +57,7 @@ class Domain(object):
             for k in dico:
                 if k in record and record[k] == dico[k]:
                     return Record(self, **record)
-        #TODO:
+        # TODO:
         raise Exception("Not found")
 
     def get_records(self):
@@ -94,13 +95,14 @@ class Domain(object):
         if emailAddress:
             self.emailAddress = emailAddress
             dom['emailAddress'] = self.emailAddress
-        if comment: 
+        if comment:
             self.comment = comment
             dom['comment'] = self.comment
         js = json.dumps(dom)
 
         response = self.conn.make_request('PUT', ["domains", self.id],
-                                          data=js, content_type='application/json')
+                                          data=js,
+                                          content_type='application/json')
         output = self.conn.wait_for_async_request(response)
         return output
 
@@ -111,10 +113,12 @@ class Domain(object):
                'comment': comment}
         if type.upper() in ('MX', 'SRV'):
             rec['priority'] = priority
-        if ttl: rec['ttl'] = ttl
-        return rec 
+        if ttl:
+            rec['ttl'] = ttl
+        return rec
 
-    def create_record(self, name, data, type, ttl=None, priority=None, comment=""):
+    def create_record(self, name, data, type, ttl=None,
+                      priority=None, comment=""):
         rec = [name, data, type, ttl, priority, comment]
         return self.create_records((rec,))[0]
 
@@ -144,7 +148,7 @@ class Domain(object):
                                            self.id,
                                            'records'],
                                           parms=ret,
-                                           )
+                                          )
         return response
 
 
@@ -166,14 +170,14 @@ class DomainResults(object):
         else:
             kwargs['comment'] = None
         return Domain(self.conn,
-                         self._domains[key]['name'],
-                         self._domains[key]['id'],
-                         self._domains[key]['accountId'],
-                         **kwargs)
+                      self._domains[key]['name'],
+                      self._domains[key]['id'],
+                      self._domains[key]['accountId'],
+                      **kwargs)
 
     def __getslice__(self, i, j):
-        return [Domain(self.conn, k['name'], k['id'], \
-                              k['accountId']) for k in self._domains[i:j]]
+        return [Domain(self.conn, k['name'], k['id'],
+                       k['accountId']) for k in self._domains[i:j]]
 
     def __contains__(self, item):
         return item in self._names

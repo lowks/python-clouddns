@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
-__author__ = "Chmouel Boudjnah <chmouel@chmouel.com>"
 import json
+__author__ = "Chmouel Boudjnah <chmouel@chmouel.com>"
+
 
 class Record(object):
     def __init__(self, domain,
@@ -75,8 +76,8 @@ class RecordResults(object):
         return Record(self.domain, **(self._records[key]))
 
     def __getslice__(self, i, j):
-        return [Record(self.domain, record_id=k) \
-                    for k in self._records[i:j]]
+        return [Record(self.domain, record_id=k)
+                for k in self._records[i:j]]
 
     def __contains__(self, item):
         return item in self._records

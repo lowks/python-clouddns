@@ -1,19 +1,9 @@
-__author__ = "Chmouel Boudjnah <chmouel@chmouel.com>"
-"""
-connection operations
-
-Connection instances are used to communicate with the remote service.
-
-See COPYING for license information.
-"""
-
 import os
 import socket
 import consts
 import time
 import datetime
 import json
-
 from Queue import Queue, Empty, Full
 from errors import ResponseError, UnknownDomain, \
     NotDomainOwner, DomainAlreadyExists
@@ -26,6 +16,14 @@ from utils import unicode_quote, parse_url, \
 from domain import DomainResults, Domain
 from authentication import Authentication
 
+__author__ = "Chmouel Boudjnah <chmouel@chmouel.com>"
+"""
+connection operations
+
+Connection instances are used to communicate with the remote service.
+
+See COPYING for license information.
+"""
 # Because HTTPResponse objects *have* to have read() called on them
 # before they can be used again ...
 # pylint: disable-msg=W0612
@@ -240,7 +238,7 @@ class Connection(object):
             if output['status'] == 'ERROR':
                 if (output['error']['code'] == 409 and
                     output['error']['details'] == 'Domain already exists'):
-                    raise DomainAlreadyExists
+                        raise DomainAlreadyExists
                 if (output['error']['code'] == 409 and
                     output['error']['details'].find(
                         'belongs to another owner')):
@@ -373,4 +371,3 @@ class ConnectionPool(Queue):
         except Full:
             del connobj
 # vim:set ai sw=4 ts=4 tw=0 expandtab:
-
